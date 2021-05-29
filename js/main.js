@@ -11,11 +11,49 @@ const feelsLikeEl = document.querySelector('.feels-like')
 const weatherImgEl = document.querySelector('.weather__image')
 const weatherForecastContainer = document.querySelector('.weather__forecast')
 
-
 // API KEY - Registrated to Ponjevic Goran
 let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
 // URL FOR DAILY WEATHER - CURRENT
 let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
+
+let iconWeatherIds = [
+    {
+        id: [200, 201, 202, 210, 211, 212, 221, 230, 231, 232],
+        url: 'img/Thunderstorm.png'
+    },
+    {
+        id: [300, 301, 302, 310, 311, 312, 313, 314, 321],
+        url: 'img/Drizzle.png'
+    },
+    {
+        id: [500, 501, 502, 503, 504, 520, 521, 522, 531],
+        url: 'img/Light rain.png'
+    },
+    {
+        id: [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622, 511],
+        url: 'img/Snow.png'
+    },
+    {
+        id: [701, 711, 721, 731, 741, 751, 761, 762, 771, 781],
+        url: 'img/Mist.png'
+    },
+    {
+        id: [800],
+        url: 'img/Clear.png'
+    },
+    {
+        id: [801],
+        url: 'img/Few clouds.png'
+    },
+    {
+        id: [802],
+        url: 'img/Scattered clouds.png'
+    },
+    {
+        id: [803, 804],
+        url: 'img/Overcast.png'
+    }
+]
 
 // GET THE DAILY WEATHER DATA
 async function getWeatherByCityName(city = 'Belgrade') {
@@ -54,20 +92,13 @@ function getWeatherToDOM(data) {
     pressureEl.innerHTML = pressure
     temperatureEl.innerHTML = temp > 0 ? '+' + temp.toFixed(1) : temp.toFixed(1)
 
-    // Failsafe code for weather icons, if image is not recognised, pull icon from API
-    let imgDescription = weather[0].description
-    let imageIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`
-    let imagePath = `img/${imgDescription}.png`
-
-    // FUNCTION TO CHECK IF IMAGE EXIST !!!
-    let myImg = new Image;
-    myImg.src = imagePath
-    myImg.onerror = function () {
-        weatherImgEl.src = imageIcon
-    }
-    myImg.onload = function () {
-        weatherImgEl.src = imagePath
-    }
+    // Getting weather icon id from api, and checking in iconWeatherIds array for img url
+    let imageId = data.weather[0].id
+    iconWeatherIds.forEach(object => {
+        if (object.id.includes(imageId)) {
+            weatherImgEl.src = object.url
+        }
+    })
 
     // VARIABLES FOR FUTURE FORECAST, Latitude and Longitude
     let lat = data.coord.lat
@@ -87,7 +118,7 @@ async function futureForecast(lat, lon) {
 
     const res = await fetch(futureForecastURL)
     const data = await res.json()
-    // console.log(data)
+    console.log(data)
 
     // Feels like element
     let feelsLike = data.current.feels_like.toFixed(1)
@@ -99,11 +130,19 @@ async function futureForecast(lat, lon) {
         let { temp, weather } = data.daily[i]
         let { day, max, min } = temp
 
-        // Failsafe code for weather icons, if image is not recognised, pull icon from API
-        let imgDescription = weather[0].main
-        let imageIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`
-        let imagePath = `img/${imgDescription}.png`
+        // Weather description, a title for every card day
+        let weatherDescription = weather[0].description
+        weatherDescription = weatherDescription[0].toUpperCase() + weatherDescription.slice(1)
+
+        // Getting weather icon id from api, and checking in iconWeatherIds array for img url
         let imgSrc
+        let imageId = weather[0].id
+
+        iconWeatherIds.forEach(object => {
+            if (object.id.includes(imageId)) {
+                imgSrc = object.url
+            }
+        })
 
         // Getting the day names for every future day
         const today = new Date()
@@ -119,13 +158,13 @@ async function futureForecast(lat, lon) {
         articleEl.className = 'weather__forecast__item'
 
         articleEl.innerHTML = `
-            <img src="${imagePath}" alt="${imagePath}" class="weather__forecast__icon">
+            <p class="weather-description">${weatherDescription}</p>
+            <img src="${imgSrc}" alt="${imgSrc}" class="weather__forecast__icon">
             <h3 class="weather__forecast__day">${dayName}</h3>
             <p class="weather__forecast__temperature"><span class="value">${day > 0 ? '+' + day.toFixed(1) : day.toFixed(1)}</span> &deg;C</p>
             <span class="minTemp">Min: ${Math.round(min)}</span>
             <span class="maxTemp">Max: ${Math.round(max)}</span>
             `
-
         weatherForecastContainer.appendChild(articleEl)
     }
 }

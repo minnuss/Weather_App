@@ -133,7 +133,6 @@ body .weather .weather__forecast {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -152,8 +151,9 @@ body .weather .weather__forecast__item * {
 }
 
 body .weather .weather__forecast__item .weather__forecast__icon {
-  max-width: 150px;
-  max-height: 150px;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 body .weather .weather__forecast__item .weather__forecast__temperature {
