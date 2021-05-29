@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background-image: radial-gradient(circle, #1c7fc2 0%, #009cdc 28%, #0d9ade 32%, #011844 100%);
+  color: #fff;
+  font-size: 2.2rem;
+}
+
+body .weather {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+  white-space: nowrap;
+}
+
+body .weather__search {
+  width: 100%;
+  padding: 15px 10px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  font: 2rem;
+  outline: none;
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+body .weather__search::placeholder {
+  color: #fff;
+}
+
+body .weather__today {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+}
+
+body .weather__today .weather__details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+body .weather__today .weather__details .weather__city {
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+body .weather__today .weather__details .weather__day {
+  font-size: clamp(2rem, 5vw, 2.7rem);
+  margin: 10px 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+body .weather__today .weather__details .weather__current {
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+}
+
+body .weather__today .weather__details .weather__current * {
+  margin: 15px 0;
+}
+
+body .weather__today .weather__details .weather__current .weather__indicator::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+body .weather__today .weather__details .weather__current .weather__indicator--humidity::before {
+  background-image: url(../img/humidity.png);
+}
+
+body .weather__today .weather__details .weather__current .weather__indicator--wind::before {
+  background-image: url(../img/wind.png);
+}
+
+body .weather__today .weather__details .weather__current .weather__indicator--pressure::before {
+  background-image: url(../img/pressure.png);
+}
+
+body .weather__today .weather__image {
+  margin: 0 auto;
+  width: 30vmin;
+  align-self: center;
+  object-fit: cover;
+  margin-top: calc(0px + 1.5vw);
+  margin-bottom: calc(5px + 0.1vw);
+}
+
+body .weather__today .weather__temperature {
+  font-size: clamp(3.3rem, 5vw, 6rem);
+  top: 0;
+  right: 0;
+  margin: 0;
+}
+
+body .weather__today .weather__temperature .feels-like-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+body .weather__today .weather__temperature .feels-like-box .feels-like {
+  font-size: 1.5rem;
+}
+
+body .weather .weather__forecast {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body .weather .weather__forecast__item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin: 0 10px 10px;
+  padding: 30px 5px 20px;
+  min-width: 150px;
+  width: calc(20% - 20px);
+  flex-grow: 1;
+}
+
+body .weather .weather__forecast__item * {
+  margin-bottom: 10px;
+}
+
+body .weather .weather__forecast__item .weather__forecast__icon {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+body .weather .weather__forecast__item .weather__forecast__temperature {
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+body .weather .weather__forecast__item .minTemp,
+body .weather .weather__forecast__item .maxTemp {
+  font-size: 1.7rem;
+  margin: 0 5px 0 5px;
+}
+
+@media (max-width: 750px) {
+  body .weather__temperature {
+    position: absolute;
+  }
+  body .weather__image {
+    position: absolute;
+    right: 0;
+    top: 63px;
+  }
+}
+/*# sourceMappingURL=style.css.map */

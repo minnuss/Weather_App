@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="weather">
+        <input type="search" class="weather__search" placeholder="Your City">
+
+        <div class="weather__today">
+
+            <div class="weather__details">
+                <h2 class="weather__city">City</h2>
+                <p class="weather__day">Day</p>
+
+                <div class="weather__current">
+                    <p class="weather__indicator weather__indicator--humidity"><span class="value">50%</span></p>
+                    <p class="weather__indicator weather__indicator--wind"><span class="value">West, 5</span>m/s</p>
+                    <p class="weather__indicator weather__indicator--pressure"><span class="value">1050</span>hPa</p>
+                </div>
+
+            </div>
+
+            <img src="" alt="" class="weather__image">
+            <div class="weather__temperature"><span class="value">+25</span> &deg;C
+                <div class="feels-like-box">
+                    <span class="feels-like"></span>
+                    <!-- <span class="maxTemp"></span> -->
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="weather__forecast">
+            <!-- <article class="weather__forecast__item">
+                <img src="../img/clear-sky.png" alt="clear sky" class="weather__forecast__icon">
+                <h3 class="weather__forecast__day">Day</h3>
+                <p class="weather__forecast__temperature"><span class="value">+25</span> &deg;C</p>
+                <span class="minTemp">Min: 10</span>
+                <span class="maxTemp">Max: 20</span>
+            </article> -->
+        </div>
+    </div>
+
+
+
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
