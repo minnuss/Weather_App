@@ -57,7 +57,7 @@ function getWeatherToDOM(data) {
     // Failsafe code for weather icons, if image is not recognised, pull icon from API
     let imgDescription = weather[0].description
     let imageIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`
-    let imagePath = `../img/${imgDescription}.png`
+    let imagePath = `img/${imgDescription}.png`
 
     // FUNCTION TO CHECK IF IMAGE EXIST !!!
     let myImg = new Image;
@@ -102,7 +102,7 @@ async function futureForecast(lat, lon) {
         // Failsafe code for weather icons, if image is not recognised, pull icon from API
         let imgDescription = weather[0].main
         let imageIcon = `http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`
-        let imagePath = `../img/${imgDescription}.png`
+        let imagePath = `img/${imgDescription}.png`
         let imgSrc
 
         // Getting the day names for every future day
