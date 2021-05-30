@@ -16,42 +16,102 @@ let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
 // URL FOR DAILY WEATHER - CURRENT
 let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
 
+
+// ARRAY OF OBJECTS FOR WEATHER ICONS
+// Icons are created by amCharts (https://www.amcharts.com/
+// License : https://creativecommons.org/licenses/by/4.0/ 
 let iconWeatherIds = [
     {
-        id: [200, 201, 202, 210, 211, 212, 221, 230, 231, 232],
-        url: 'img/Thunderstorm.png'
+        id: [212, 221, 230, 231, 232],
+        url: 'img/Thunderstorm.svg'
     },
     {
-        id: [300, 301, 302, 310, 311, 312, 313, 314, 321],
-        url: 'img/Drizzle.png'
+        id: [210, 211],
+        url: 'img/Thunderstorm Light.svg'
     },
     {
-        id: [500, 501, 502, 503, 504, 520, 521, 522, 531],
-        url: 'img/Light rain.png'
+        id: [200, 201, 202],
+        url: 'img/Thunderstorm Rain.svg'
     },
     {
-        id: [600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622, 511],
-        url: 'img/Snow.png'
+        id: [300, 301, 310, 311],
+        url: 'img/Drizzle.svg'
+    },
+    {
+        id: [302, 312, 313, 314, 321],
+        url: 'img/Drizzle Heavy.svg'
+    },
+    {
+        id: [500, 520],
+        url: 'img/Rain Light.svg'
+    },
+    {
+        id: [501],
+        url: 'img/Rain Moderate.svg'
+    },
+    {
+        id: [502, 503, 504],
+        url: 'img/Rain Heavy.svg'
+    },
+    {
+        id: [511, 522, 531],
+        url: 'img/Rain Heavy Cloudy.svg'
+    },
+    {
+        id: [521],
+        url: 'img/Rain Moderate Cloudy.svg'
+    },
+    {
+        id: [600, 601, 612],
+        url: 'img/Snow Light.svg'
+    },
+    {
+        id: [611, 613],
+        url: 'img/Snow Sleet.svg'
+    },
+    {
+        id: [602],
+        url: 'img/Snow Heavy.svg'
+    },
+    {
+        id: [615, 616],
+        url: 'img/Snow Rain.svg'
+    },
+    {
+        id: [620],
+        url: 'img/Snow Shower Light.svg'
+    },
+    {
+        id: [621],
+        url: 'img/Snow Shower.svg'
+    },
+    {
+        id: [622],
+        url: 'img/Snow Shower Heavy.svg'
     },
     {
         id: [701, 711, 721, 731, 741, 751, 761, 762, 771, 781],
-        url: 'img/Mist.png'
+        url: 'img/Fog.svg'
     },
     {
         id: [800],
-        url: 'img/Clear.png'
+        url: 'img/Clear Sky.svg'
     },
     {
         id: [801],
-        url: 'img/Few clouds.png'
+        url: 'img/Clouds Few.svg'
     },
     {
         id: [802],
-        url: 'img/Scattered clouds.png'
+        url: 'img/Clouds Scattered.svg'
     },
     {
-        id: [803, 804],
-        url: 'img/Overcast.png'
+        id: [803],
+        url: 'img/Clouds Broken.svg'
+    },
+    {
+        id: [804],
+        url: 'img/Clouds Overcast.svg'
     }
 ]
 

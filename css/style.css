@@ -104,11 +104,9 @@ body .weather__today .weather__details .weather__current .weather__indicator--pr
 
 body .weather__today .weather__image {
   margin: 0 auto;
-  width: 30vmin;
+  width: 35vmin;
   align-self: center;
   object-fit: cover;
-  margin-top: calc(0px + 1.5vw);
-  margin-bottom: calc(5px + 0.1vw);
 }
 
 body .weather__today .weather__temperature {
