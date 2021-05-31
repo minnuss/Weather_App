@@ -139,7 +139,7 @@ function getWeatherToDOM(data) {
     // Get the day name in character
     let date = new Date()
     let options = { weekday: 'long' }
-    let dayName = date.toLocaleString('sr-RS', options)
+    let dayName = date.toLocaleString('sr-Latn-RS', options)
 
     // Get the wind direction in character
     let windDirection = wind.deg
@@ -208,8 +208,9 @@ async function futureForecast(lat, lon) {
         const today = new Date()
         const tomorrow = new Date()
         tomorrow.setDate(today.getDate() + (i + 1))
-        let options = { weekday: 'long' }
-        let dayName = tomorrow.toLocaleString('sr-RS', options)
+        let options = { weekday: 'long', setScript: 'Latn' }
+        // let dayName = tomorrow.toLocaleString('sr-RS', options)
+        let dayName = tomorrow.toLocaleDateString('sr-Latn-RS', options)
         dayName = dayName[0].toUpperCase() + dayName.slice(1)
         // console.log(dayName)
 
