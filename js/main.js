@@ -11,7 +11,7 @@ const feelsLikeEl = document.querySelector('.feels-like')
 const weatherImgEl = document.querySelector('.weather__image')
 const weatherForecastContainer = document.querySelector('.weather__forecast')
 
-// API KEY - Registrated to Ponjevic Goran
+// API KEY - Registrated to Ponjevic Goran (DO NOT USE THIS API KEY)
 let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
 // URL FOR DAILY WEATHER - CURRENT
 let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
@@ -120,6 +120,7 @@ async function getWeatherByCityName(city = 'Belgrade') {
     let endpoint = weatherBaseURL + '&q=' + city + '&units=metric'
 
     let response = await fetch(endpoint)
+
     let data = await response.json()
     // console.log(data)
 
@@ -178,7 +179,7 @@ async function futureForecast(lat, lon) {
 
     const res = await fetch(futureForecastURL)
     const data = await res.json()
-    console.log(data)
+    // console.log(data)
 
     // Feels like element
     let feelsLike = data.current.feels_like.toFixed(1)
@@ -235,7 +236,45 @@ searchInput.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) {
         getWeatherByCityName(searchInput.value)
         searchInput.value = ''
+
+        // Loose focus on input after enter
+        setTimeout(() => {
+            searchInput.blur()
+        }, 100);
     }
 })
 
+// WORLD CITY SUGGESTIONS API
+let citySuggestionURL = 'https://api.teleport.org/api/cities/?search='
+const dataListEl = document.getElementById('suggestion-cities')
 
+searchInput.addEventListener('input', async () => {
+    let userSearchType = citySuggestionURL + searchInput.value
+    let res = await fetch(userSearchType)
+    let data = await res.json()
+    // console.log(data._embedded['city:search-results'][0])
+
+    // Clear the option elements every time user types new character
+    dataListEl.innerHTML = ''
+
+    // Get max 5 city results, or less then 5
+    let citiesResult = data._embedded['city:search-results']
+    let length = citiesResult.length > 5 ? 5 : citiesResult.length
+
+    for (let i = 0; i < length; i++) {
+        // console.log(data._embedded['city:search-results'][i]['matching_full_name'])
+
+        const cityName = data._embedded['city:search-results'][i]['matching_full_name']
+        // console.log(cityName)
+
+        // Split the result in to City Name and Country, removing middle Region option, so that Weather API understand the search input
+        let split = cityName.split(',')
+        // console.log(split[0], split[2])
+        let cityNameCountryName = `${split[0]},${split[2]}`
+
+        let optionEl = document.createElement('option')
+        // Pass the attribute value to option element
+        optionEl.setAttribute('value', cityNameCountryName)
+        dataListEl.appendChild(optionEl)
+    }
+})

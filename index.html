@@ -13,7 +13,11 @@
 
 <body>
     <div class="weather">
-        <input type="search" class="weather__search" placeholder="Your City">
+        <input type="search" list="suggestion-cities" class="weather__search" placeholder="Your City">
+        <datalist id="suggestion-cities">
+            <!-- <option value="London"></option>
+            <option value="New York"></option> -->
+        </datalist>
 
         <div class="weather__today">
 
