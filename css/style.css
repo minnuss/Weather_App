@@ -63,6 +63,11 @@ body .weather .input__box .locateBtn {
   cursor: pointer;
 }
 
+body .weather .input__box .locateBtn:hover,
+body .weather .input__box .locateBtn :active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 body .weather__today {
   display: flex;
   justify-content: flex-start;
