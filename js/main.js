@@ -23,9 +23,6 @@ let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
 // URL FOR DAILY WEATHER - CURRENT
 let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
 
-let latitude = 0;
-let longitude = 0;
-
 // GET GEOLOCATION API
 // function getLocation() {
 //     if (navigator.geolocation) {
@@ -73,11 +70,8 @@ locateBtn.addEventListener('click', () => {
         // console.log(`Latitude : ${crd.latitude}`);
         // console.log(`Longitude: ${crd.longitude}`);
 
-        latitude = crd.latitude
-        longitude = crd.longitude
-
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        let geoLocationURL = `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=2bf1935b5f96461390bfeb4432f93948`
+        let geoLocationURL = `https://api.opencagedata.com/geocode/v1/json?q=${crd.latitude},${crd.longitude}&key=2bf1935b5f96461390bfeb4432f93948`
 
         console.log('geoLocationURL', geoLocationURL)
 
