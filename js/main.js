@@ -10,12 +10,57 @@ const temperatureEl = document.querySelector('.weather__temperature .value')
 const feelsLikeEl = document.querySelector('.feels-like')
 const weatherImgEl = document.querySelector('.weather__image')
 const weatherForecastContainer = document.querySelector('.weather__forecast')
+const locateBtn = document.querySelector('.locateBtn')
 
-// API KEY - Registrated to Ponjevic Goran (DO NOT USE THIS API KEY)
+let defaultCity = 'Belgrade'
+
+// WEATHER API KEY - (DO NOT USE THIS API KEY) - register for yours !!!
 let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
 // URL FOR DAILY WEATHER - CURRENT
 let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
 
+let latitude = 0;
+let longitude = 0;
+
+// GET GEOLOCATION API
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    console.log(position.coords.latitude, position.coords.longitude)
+    latitude = position.coords.latitude
+    longitude = position.coords.longitude
+
+    // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
+    let geoLocationURL = `http://api.positionstack.com/v1/reverse?access_key=31c52e81289da016f2036e0a0695c4db&query=${latitude},${longitude}`
+
+    async function getGeoLocationCity() {
+        const res = await fetch(geoLocationURL);
+        const data = await res.json();
+
+        console.log(data.data[0].administrative_area);
+
+        if (data) {
+            defaultCity = data.data[0].administrative_area
+        }
+
+        console.log(defaultCity);
+    }
+    getGeoLocationCity()
+}
+
+locateBtn.addEventListener('click', () => {
+    getLocation()
+    console.log(defaultCity);
+    setTimeout(() => {
+        getWeatherByCityName(defaultCity)
+    }, 3000)
+})
 
 // ARRAY OF OBJECTS FOR WEATHER ICONS
 // Icons are created by amCharts (https://www.amcharts.com/
@@ -116,8 +161,8 @@ let iconWeatherIds = [
 ]
 
 // GET THE DAILY WEATHER DATA
-async function getWeatherByCityName(city = 'Belgrade') {
-    let endpoint = weatherBaseURL + '&q=' + city + '&units=metric'
+async function getWeatherByCityName(defaultCity) {
+    let endpoint = weatherBaseURL + '&q=' + defaultCity + '&units=metric'
 
     let response = await fetch(endpoint)
 
@@ -127,7 +172,7 @@ async function getWeatherByCityName(city = 'Belgrade') {
     getWeatherToDOM(data)
 }
 // Default Belgrade
-getWeatherByCityName('Belgrade')
+getWeatherByCityName(defaultCity)
 
 // PUT DATA TO THE DOM, DAILY CURRENT WEATHER
 function getWeatherToDOM(data) {

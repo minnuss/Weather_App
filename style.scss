@@ -38,20 +38,36 @@ body {
     // for span elements to be in one line
     white-space: nowrap;
 
-    &__search {
-      width: 100%;
-      padding: 15px 10px;
-      border: none;
-      background-color: rgba(255, 255, 255, 0.15);
-      font: 2rem;
-      outline: none;
-      color: #fff;
-      margin-bottom: 20px;
-      font-size: 2rem;
-      letter-spacing: 2px;
+    .input__box {
+      display: flex;
+      justify-content: space-between;
 
-      &::placeholder {
+      .weather__search {
+        width: calc(100% - 45px);
+        padding: 15px 10px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.15);
+        font: 2rem;
+        outline: none;
         color: #fff;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        letter-spacing: 2px;
+
+        &::placeholder {
+          color: #fff;
+        }
+      }
+
+      .locateBtn {
+        border: 1px solid rgba(255, 255, 255, 0.561);
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 0px 10px;
+        color: #fff;
+        font: 1rem;
+        font-weight: 600;
+        max-height: 5.2rem;
+        cursor: pointer;
       }
     }
 

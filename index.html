@@ -10,12 +10,18 @@
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <title>Weather App</title>
+    <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="weather">
-        <input type="search" list="suggestion-cities" class="weather__search" placeholder="Your City">
+        <div class="input__box">
+            <input type="search" list="suggestion-cities" class="weather__search" placeholder="Your City">
+            <button type="submit" class="locateBtn"><i class="fas fa-map-marker-alt"></i></button>
+            <!-- <input type="button" value="Locate" > -->
+        </div>
         <datalist id="suggestion-cities">
             <!-- <option value="London"></option>
             <option value="New York"></option> -->

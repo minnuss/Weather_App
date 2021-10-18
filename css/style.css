@@ -30,8 +30,13 @@ body .weather {
   white-space: nowrap;
 }
 
-body .weather__search {
-  width: 100%;
+body .weather .input__box {
+  display: flex;
+  justify-content: space-between;
+}
+
+body .weather .input__box .weather__search {
+  width: calc(100% - 45px);
   padding: 15px 10px;
   border: none;
   background-color: rgba(255, 255, 255, 0.15);
@@ -43,8 +48,19 @@ body .weather__search {
   letter-spacing: 2px;
 }
 
-body .weather__search::placeholder {
+body .weather .input__box .weather__search::placeholder {
   color: #fff;
+}
+
+body .weather .input__box .locateBtn {
+  border: 1px solid rgba(255, 255, 255, 0.561);
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0px 10px;
+  color: #fff;
+  font: 1rem;
+  font-weight: 600;
+  max-height: 5.2rem;
+  cursor: pointer;
 }
 
 body .weather__today {
