@@ -79,13 +79,13 @@ locateBtn.addEventListener('click', () => {
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
         let geoLocationURL = `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=2bf1935b5f96461390bfeb4432f93948`
 
-        // console.log(geoLocationURL)
+        console.log('geoLocationURL', geoLocationURL)
 
         async function getGeoLocationCity() {
             const res = await fetch(geoLocationURL);
             const data = await res.json();
 
-            // console.log(data.results[0].components.city_district)
+            console.log('Recognized city', data.results[0].components.city_district)
 
             if (data) {
                 geoLocationCity = data.results[0].components.city_district
@@ -102,8 +102,8 @@ locateBtn.addEventListener('click', () => {
 
             setTimeout(() => {
                 getWeatherByCityName(geoLocationCity)
-            }, 1000)
-        }, 200)
+            }, 2000)
+        }, 300)
     }
 
     function error(err) {
