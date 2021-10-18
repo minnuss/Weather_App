@@ -92,6 +92,7 @@ locateBtn.addEventListener('click', () => {
             }
 
             console.log('GeoLocation City recognized: ', geoLocationCity);
+            alert(geoLocationCity)
         }
         // getGeoLocationCity()
 
