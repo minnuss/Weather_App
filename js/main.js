@@ -79,14 +79,15 @@ locateBtn.addEventListener('click', () => {
             const res = await fetch(geoLocationURL);
             const data = await res.json();
 
+            console.log(data)
             console.log('Recognized city', data.results[0].components.city_district)
 
             if (data) {
-                geoLocationCity = data.results[0].components.city_district
+                geoLocationCity = data.results[0]?.components.city_district || data.results[0].components?.quarter
             }
 
             console.log('GeoLocation City recognized: ', geoLocationCity);
-            alert(geoLocationCity)
+            // alert(geoLocationCity)
         }
         // getGeoLocationCity()
 
