@@ -1,4 +1,7 @@
 // https://openweathermap.org/current
+setTimeout(() => {
+    // location.reload(true);
+}, 5)
 
 const searchInput = document.querySelector('.weather__search')
 const cityEl = document.querySelector('.weather__city')
@@ -13,6 +16,7 @@ const weatherForecastContainer = document.querySelector('.weather__forecast')
 const locateBtn = document.querySelector('.locateBtn')
 
 let defaultCity = 'Belgrade'
+let geoLocationCity
 
 // WEATHER API KEY - (DO NOT USE THIS API KEY) - register for yours !!!
 let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
@@ -23,43 +27,91 @@ let latitude = 0;
 let longitude = 0;
 
 // GET GEOLOCATION API
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
+// function getLocation() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(showPosition);
+//     } else {
+//         x.innerHTML = "Geolocation is not supported by this browser.";
+//     }
+// }
 
-function showPosition(position) {
-    console.log(position.coords.latitude, position.coords.longitude)
-    latitude = position.coords.latitude
-    longitude = position.coords.longitude
+// function showPosition(position) {
+//     console.log(position.coords.latitude, position.coords.longitude)
+//     latitude = position.coords.latitude
+//     longitude = position.coords.longitude
 
-    // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-    let geoLocationURL = `http://api.positionstack.com/v1/reverse?access_key=31c52e81289da016f2036e0a0695c4db&query=${latitude},${longitude}`
+//     // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
+//     let geoLocationURL = `http://api.positionstack.com/v1/reverse?access_key=31c52e81289da016f2036e0a0695c4db&query=${latitude},${longitude}`
 
-    async function getGeoLocationCity() {
-        const res = await fetch(geoLocationURL);
-        const data = await res.json();
+//     async function getGeoLocationCity() {
+//         const res = await fetch(geoLocationURL);
+//         const data = await res.json();
 
-        console.log(data.data[0].administrative_area);
+//         console.log('fetchovani region:', data.data[0].administrative_area);
 
-        if (data) {
-            defaultCity = data.data[0].administrative_area
-        }
+//         if (data) {
+//             geoLocationCity = data.data[0].administrative_area
+//         }
 
-        console.log(defaultCity);
-    }
-    getGeoLocationCity()
-}
+//         console.log('varijabla geolocation city:', geoLocationCity);
+//     }
+//     getGeoLocationCity()
+// }
 
 locateBtn.addEventListener('click', () => {
-    getLocation()
-    console.log(defaultCity);
-    setTimeout(() => {
-        getWeatherByCityName(defaultCity)
-    }, 3000)
+
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    function success(pos) {
+        var crd = pos.coords;
+
+        console.log('Your current position is:', `Latitude : ${crd.latitude}`, `Longitude: ${crd.longitude}`);
+        // console.log(`Latitude : ${crd.latitude}`);
+        // console.log(`Longitude: ${crd.longitude}`);
+
+        latitude = crd.latitude
+        longitude = crd.longitude
+
+        // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
+        let geoLocationURL = `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=2bf1935b5f96461390bfeb4432f93948`
+
+        // console.log(geoLocationURL)
+
+        async function getGeoLocationCity() {
+            const res = await fetch(geoLocationURL);
+            const data = await res.json();
+
+            // console.log(data.results[0].components.city_district)
+
+            if (data) {
+                geoLocationCity = data.results[0].components.city_district
+            }
+
+            console.log('GeoLocation City recognized: ', geoLocationCity);
+        }
+        // getGeoLocationCity()
+
+        // console.log(defaultCity);
+        setTimeout(() => {
+            getGeoLocationCity()
+
+            setTimeout(() => {
+                getWeatherByCityName(geoLocationCity)
+            }, 1000)
+        }, 200)
+    }
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+
 })
 
 // ARRAY OF OBJECTS FOR WEATHER ICONS
