@@ -66,6 +66,11 @@ body .weather .input__box .locateBtn {
 body .weather .input__box .locateBtn:hover,
 body .weather .input__box .locateBtn :active {
   background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0.99);
+}
+
+body .weather .input__box .locateBtn:active {
+  transform: scale(0.9);
 }
 
 body .weather__today {
