@@ -71,7 +71,7 @@ locateBtn.addEventListener('click', () => {
         // console.log(`Longitude: ${crd.longitude}`);
 
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        let geoLocationURL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
+        let geoLocationURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
 
         console.log('geoLocationURL', geoLocationURL)
 
