@@ -71,9 +71,7 @@ locateBtn.addEventListener('click', () => {
         // console.log(`Longitude: ${crd.longitude}`);
 
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        // let geoLocationURL = `https://api.opencagedata.com/geocode/v1/json?q=${crd.latitude},${crd.longitude}&key=2bf1935b5f96461390bfeb4432f93948`
-
-        let geoLocationURL = `https://eu1.locationiq.com/v1/reverse.php?key=pk.fb5a75187c44820e333d32f28be6482a&lat=${crd.latitude}&lon=${crd.longitude}&format=json`
+        let geoLocationURL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
 
         console.log('geoLocationURL', geoLocationURL)
 
@@ -82,10 +80,10 @@ locateBtn.addEventListener('click', () => {
             const data = await res.json();
 
             console.log(data)
-            console.log('Recognized city', data.address.city_district)
+            console.log('Recognized city', data[0].name)
 
             if (data) {
-                geoLocationCity = data.address.city_district
+                geoLocationCity = data[0].name
             }
 
             console.log('GeoLocation City recognized: ', geoLocationCity);
