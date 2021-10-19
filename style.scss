@@ -89,14 +89,13 @@ body {
       .weather__details {
         display: flex;
         flex-direction: column;
-        // align-items: center;
         justify-content: center;
 
         .weather__city {
+          // display: block;
           font-size: clamp(2.2rem, 5vw, 5rem);
           font-weight: 600;
           margin: 0 0 20px;
-          max-width: 180px;
         }
 
         .weather__day {
