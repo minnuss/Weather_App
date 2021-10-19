@@ -242,7 +242,7 @@ function getWeatherToDOM(data) {
 
     // FORCE SPLITING OF LONG CITY NAMES TO MORE LINES WHEN ON MOBILE DEVICES
     if (window.innerWidth < 600) {
-        name = name.match(/.{1,15}(\s|$)/g).map(words => words + '<br>').join(' ')
+        name = name.match(/.{1,14}(\s|$)/g).map(words => words + '<br>').join(' ')
         name = name.slice(0, -4)
     }
 
