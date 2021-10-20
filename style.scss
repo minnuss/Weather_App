@@ -36,7 +36,7 @@ body {
     margin: 0 auto;
     padding: 20px 0;
     // for span elements to be in one line
-    white-space: nowrap;
+    // white-space: nowrap;
 
     .input__box {
       display: flex;
@@ -87,12 +87,10 @@ body {
       position: relative;
 
       .weather__details {
-        display: flex;
         flex-direction: column;
         justify-content: center;
 
         .weather__city {
-          // display: block;
           font-size: clamp(2.2rem, 5vw, 5rem);
           font-weight: 600;
           margin: 0 0 20px;
@@ -215,6 +213,14 @@ body {
       position: absolute;
       right: 0;
       top: 63px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .weather__city {
+      word-wrap: break-word;
+      max-width: 170px;
+      white-space: wrap;
     }
   }
 }

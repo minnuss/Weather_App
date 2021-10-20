@@ -27,7 +27,6 @@ body .weather {
   height: 100%;
   margin: 0 auto;
   padding: 20px 0;
-  white-space: nowrap;
 }
 
 body .weather .input__box {
@@ -80,7 +79,6 @@ body .weather__today {
 }
 
 body .weather__today .weather__details {
-  display: flex;
   flex-direction: column;
   justify-content: center;
 }
@@ -199,6 +197,14 @@ body .weather .weather__forecast__item .maxTemp {
     position: absolute;
     right: 0;
     top: 63px;
+  }
+}
+
+@media (max-width: 500px) {
+  body .weather__city {
+    word-wrap: break-word;
+    max-width: 170px;
+    white-space: wrap;
   }
 }
 /*# sourceMappingURL=style.css.map */

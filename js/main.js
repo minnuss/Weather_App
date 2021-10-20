@@ -240,14 +240,6 @@ function getWeatherToDOM(data) {
     windDirection = windDirection < 45 ? "Sever" : windDirection < 135 ? "Istok" : windDirection < 225 ? 'Jug' : windDirection < 315 ? 'Zapad' : 'Sever'
 
 
-    // FORCE SPLITING OF LONG CITY NAMES TO MORE LINES WHEN ON MOBILE DEVICES
-    if (window.innerWidth < 600) {
-        name = name.match(/.{1,14}(\s|$)/g).map(words => words + '<br>').join(' ')
-        name = name.slice(0, -4)
-    }
-
-    // console.log(name)
-
     cityEl.innerHTML = `${name}, ${sys.country}`
     dayEl.innerHTML = dayName
     humidityEl.innerHTML = humidity + '%'
