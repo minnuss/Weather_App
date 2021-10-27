@@ -1,8 +1,3 @@
-// https://openweathermap.org/current
-setTimeout(() => {
-    // location.reload(true);
-}, 5)
-
 const searchInput = document.querySelector('.weather__search')
 const cityEl = document.querySelector('.weather__city')
 const dayEl = document.querySelector('.weather__day')
@@ -17,98 +12,6 @@ const locateBtn = document.querySelector('.locateBtn')
 
 let defaultCity = 'Belgrade'
 let geoLocationCity
-
-// WEATHER API KEY - (DO NOT USE THIS API KEY) - register for yours !!!
-let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
-// URL FOR DAILY WEATHER - CURRENT
-let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
-
-// GET GEOLOCATION API
-// function getLocation() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(showPosition);
-//     } else {
-//         x.innerHTML = "Geolocation is not supported by this browser.";
-//     }
-// }
-
-// function showPosition(position) {
-//     console.log(position.coords.latitude, position.coords.longitude)
-//     latitude = position.coords.latitude
-//     longitude = position.coords.longitude
-
-//     // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-//     let geoLocationURL = `http://api.positionstack.com/v1/reverse?access_key=31c52e81289da016f2036e0a0695c4db&query=${latitude},${longitude}`
-
-//     async function getGeoLocationCity() {
-//         const res = await fetch(geoLocationURL);
-//         const data = await res.json();
-
-//         console.log('fetchovani region:', data.data[0].administrative_area);
-
-//         if (data) {
-//             geoLocationCity = data.data[0].administrative_area
-//         }
-
-//         console.log('varijabla geolocation city:', geoLocationCity);
-//     }
-//     getGeoLocationCity()
-// }
-
-locateBtn.addEventListener('click', () => {
-
-    var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-    };
-
-    function success(pos) {
-        var crd = pos.coords;
-
-        console.log('Your current position is:', `Latitude : ${crd.latitude}`, `Longitude: ${crd.longitude}`);
-        // console.log(`Latitude : ${crd.latitude}`);
-        // console.log(`Longitude: ${crd.longitude}`);
-
-        // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        let geoLocationURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
-
-        // console.log('geoLocationURL', geoLocationURL)
-
-        async function getGeoLocationCity() {
-            const res = await fetch(geoLocationURL);
-            const data = await res.json();
-
-            // console.log(data)
-            console.log('Recognized city', data[0].name)
-
-            if (data) {
-                geoLocationCity = data[0].name
-            }
-
-            console.log('GeoLocation City recognized: ', geoLocationCity);
-            // alert(geoLocationCity)
-        }
-        // getGeoLocationCity()
-
-        // console.log(defaultCity);
-        setTimeout(() => {
-            getGeoLocationCity()
-
-            setTimeout(() => {
-                getWeatherByCityName(geoLocationCity)
-            }, 2000)
-        }, 300)
-    }
-
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-
-    navigator.geolocation.getCurrentPosition(success, error, options);
-
-
-})
 
 // ARRAY OF OBJECTS FOR WEATHER ICONS
 // Icons are created by amCharts (https://www.amcharts.com/
@@ -207,6 +110,67 @@ let iconWeatherIds = [
         url: 'img/Clouds Overcast.svg'
     }
 ]
+
+// WEATHER API KEY - (DO NOT USE THIS API KEY) - register for yours !!!
+let weatherAPIKey = 'e9aec69d0b91591d02c0e671ad034e19'
+// URL FOR DAILY WEATHER - CURRENT
+let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + weatherAPIKey
+
+
+// AUTO GEOLOCATION BY CLICKING ON A BUTTON
+locateBtn.addEventListener('click', () => {
+
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    function success(pos) {
+        var crd = pos.coords;
+
+        console.log('Your current position is:', `Latitude : ${crd.latitude}`, `Longitude: ${crd.longitude}`);
+        // console.log(`Latitude : ${crd.latitude}`);
+        // console.log(`Longitude: ${crd.longitude}`);
+
+        // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
+        let geoLocationURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
+
+        // console.log('geoLocationURL', geoLocationURL)
+
+        async function getGeoLocationCity() {
+            const res = await fetch(geoLocationURL);
+            const data = await res.json();
+
+            // console.log(data)
+            console.log('Recognized city', data[0].name)
+
+            if (data) {
+                geoLocationCity = data[0].name
+            }
+
+            console.log('GeoLocation City recognized: ', geoLocationCity);
+            // alert(geoLocationCity)
+        }
+        // getGeoLocationCity()
+
+        // console.log(defaultCity);
+        setTimeout(() => {
+            getGeoLocationCity()
+
+            setTimeout(() => {
+                getWeatherByCityName(geoLocationCity)
+            }, 2000)
+        }, 300)
+    }
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+})
+
 
 // GET THE DAILY WEATHER DATA
 async function getWeatherByCityName(defaultCity) {
@@ -325,7 +289,7 @@ async function futureForecast(lat, lon) {
     }
 }
 
-// SEARCH INPUT EVENT
+// SEARCH INPUT EVENT - CONFIRM BY ENTER KEY
 searchInput.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) {
         getWeatherByCityName(searchInput.value)
@@ -338,7 +302,7 @@ searchInput.addEventListener('keydown', (e) => {
     }
 })
 
-// WORLD CITY SUGGESTIONS API
+// WORLD CITY SUGGESTIONS API - BY TYPING INTO INPUT
 let citySuggestionURL = 'https://api.teleport.org/api/cities/?search='
 const dataListEl = document.getElementById('suggestion-cities')
 
@@ -347,6 +311,7 @@ searchInput.addEventListener('input', async () => {
     let res = await fetch(userSearchType)
     let data = await res.json()
     // console.log(data._embedded['city:search-results'][0])
+    console.log(data)
 
     // Clear the option elements every time user types new character
     dataListEl.innerHTML = ''
