@@ -134,19 +134,20 @@ locateBtn.addEventListener('click', () => {
         // console.log(`Longitude: ${crd.longitude}`);
 
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        let geoLocationURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${crd.latitude}&lon=${crd.longitude}&limit=1&appid=e9aec69d0b91591d02c0e671ad034e19`
+        let geoLocationWeatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${crd.latitude}&lon=${crd.longitude}&appid=${weatherAPIKey}`
 
         // console.log('geoLocationURL', geoLocationURL)
 
         async function getGeoLocationCity() {
-            const res = await fetch(geoLocationURL);
+            const res = await fetch(geoLocationWeatherURL);
             const data = await res.json();
 
             // console.log(data)
-            console.log('Recognized city', data[0].name)
+            // console.log('Recognized city', data.name)
+            // console.log('Recognized city', data[0].name)
 
             if (data) {
-                geoLocationCity = data[0].name
+                geoLocationCity = data.name
             }
 
             console.log('GeoLocation City recognized: ', geoLocationCity);
