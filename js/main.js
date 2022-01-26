@@ -120,21 +120,28 @@ let weatherBaseURL = `https://api.openweathermap.org/data/2.5/weather?appid=` + 
 // AUTO GEOLOCATION BY CLICKING ON A BUTTON
 locateBtn.addEventListener('click', () => {
 
-    var options = {
+    if ('geolocation' in navigator) {
+        console.log('Device support geolocation')
+    } else {
+        alert('Your device does not support geolocation')
+        return
+    }
+
+    let options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
     };
 
-    function success(pos) {
-        var crd = pos.coords;
+    function success(position) {
+        let coordinates = position.coords;
 
-        console.log('Your current position is:', `Latitude : ${crd.latitude}`, `Longitude: ${crd.longitude}`);
-        // console.log(`Latitude : ${crd.latitude}`);
-        // console.log(`Longitude: ${crd.longitude}`);
+        console.log('Your current position is:', `Latitude : ${coordinates.latitude}`, `Longitude: ${coordinates.longitude}`);
+        // console.log(`Latitude : ${coordinates.latitude}`);
+        // console.log(`Longitude: ${coordinates.longitude}`);
 
         // GEOLOCATION API - (DO NOT USE THIS API KEY) - register for yours !!!
-        let geoLocationWeatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${crd.latitude}&lon=${crd.longitude}&appid=${weatherAPIKey}`
+        let geoLocationWeatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${weatherAPIKey}`
 
         // console.log('geoLocationURL', geoLocationURL)
 
