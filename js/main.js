@@ -321,38 +321,39 @@ searchInput.addEventListener('keydown', (e) => {
     }
 })
 
-// WORLD CITY SUGGESTIONS API - BY TYPING INTO INPUT
-let citySuggestionURL = 'https://api.teleport.org/api/cities/?search='
+// API NINJAS' CITY API - CITY SUGGESTIONS
+const citySuggestionURL = 'https://api.api-ninjas.com/v1/city'
 const dataListEl = document.getElementById('suggestion-cities')
+const apiKey = 'n6CWCUNp+YpqEWCLoRdhQg==64VVMsLsocRwAELv' // Replace with your API Ninjas key
 
 searchInput.addEventListener('input', async () => {
-    let userSearchType = citySuggestionURL + searchInput.value
-    let res = await fetch(userSearchType)
-    let data = await res.json()
-    // console.log(data._embedded['city:search-results'][0])
-    // console.log(data)
+    const query = searchInput.value
+    if (query.trim().length === 0) return; // Prevent unnecessary requests on empty input
 
-    // Clear the option elements every time user types new character
-    dataListEl.innerHTML = ''
+    try {
+        const res = await fetch(`${citySuggestionURL}?name=${query}&limit=5`, {
+            method: 'GET',
+            headers: {
+                'X-Api-Key': apiKey
+            }
+        });
 
-    // Get max 5 city results, or less then 5
-    let citiesResult = data._embedded['city:search-results']
-    let length = citiesResult.length > 5 ? 5 : citiesResult.length
+        if (!res.ok) throw new Error(`Error: ${res.status}`);
+        const cities = await res.json();
 
-    for (let i = 0; i < length; i++) {
-        // console.log(data._embedded['city:search-results'][i]['matching_full_name'])
+        // Clear the option elements every time user types a new character
+        dataListEl.innerHTML = '';
 
-        const cityName = data._embedded['city:search-results'][i]['matching_full_name']
-        // console.log(cityName)
+        // Populate suggestions
+        cities.forEach((city) => {
+            const cityNameCountryName = `${city.name}, ${city.country}`;
+            const optionEl = document.createElement('option');
+            optionEl.setAttribute('value', cityNameCountryName);
+            dataListEl.appendChild(optionEl);
+        });
 
-        // Split the result in to City Name and Country, removing middle Region option, so that Weather API understand the search input
-        let split = cityName.split(',')
-        // console.log(split[0], split[2])
-        let cityNameCountryName = `${split[0]},${split[2]}`
-
-        let optionEl = document.createElement('option')
-        // Pass the attribute value to option element
-        optionEl.setAttribute('value', cityNameCountryName)
-        dataListEl.appendChild(optionEl)
+    } catch (error) {
+        console.error('Error fetching city suggestions:', error);
     }
-})
+});
+
